@@ -1,25 +1,17 @@
 package controllers;
 
+
 import com.squareup.okhttp.*;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONObject;
+import play.mvc.Controller;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
+
 
 /**
  * Created by Miage on 03/12/2015.
  */
 
-public class Client {
+public class Client extends Controller  {
 
     public static String UPDATE_URL = "https://api.cdiscount.com/OpenApi/json/GetCart";
 

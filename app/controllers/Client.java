@@ -2,14 +2,7 @@ package controllers;
 
 
 import com.squareup.okhttp.*;
-import models.Product;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import play.mvc.Controller;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -21,11 +14,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.lang.Object;
+
+
 /**
  * Created by Miage on 03/12/2015.
  */
 
-public class Client {
+public class Client extends Controller  {
 
     public static String URLToSendToSearchMethod ="https://api.cdiscount.com/OpenApi/json/Search";
     static List<Map<String,String>> events = new ArrayList<Map<String,String>>();

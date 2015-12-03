@@ -75,7 +75,6 @@ public class Client {
 
             Response response = client.newCall(request).execute();
             InputStream stream = response.body().byteStream();
-
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
             StringBuilder result = new StringBuilder();
             String line;

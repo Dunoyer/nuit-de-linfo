@@ -19,6 +19,17 @@ public class Product {
     private ArrayList<Offer> Offers;
     private ArrayList<Product> AssociatedProducts;
 
+    public Product(String id, String description, String mainImageUrl, String name, String brand) {
+        Id = id;
+        Description = description;
+        MainImageUrl = mainImageUrl;
+        Name = name;
+        Brand = brand;
+    }
+
+    public Product() {
+    }
+
     public String getId() {
         return Id;
     }

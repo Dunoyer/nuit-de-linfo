@@ -55,7 +55,7 @@ public class Client {
     }
 
     public static String createJsonForSearch(String keyWord, String sortBy){
-        return "{\r\n  \"ApiKey\": \"93cf730f-a372-4b74-8df3-e64bf9c7a817\",\r\n  \"SearchRequest\": {\r\n    \"Keyword\": \"" + keyWord + "\",\r\n    \"SortBy\": \"minprice\",\r\n    \"Pagination\": {\r\n      \"ItemsPerPage\": 1\r\n    },\r\n    \"Filters\": {\r\n      \"Price\": {\r\n        \"Min\": 0\r\n      },\r\n      \"IncludeMarketPlace\": false\r\n    }\r\n  }\r\n}";
+        return "{\r\n  \"ApiKey\": \"93cf730f-a372-4b74-8df3-e64bf9c7a817\",\r\n  \"SearchRequest\": {\r\n    \"Keyword\": \"" + keyWord + "\",\r\n    \"SortBy\": \" " + sortBy + "\",\r\n    \"Pagination\": {\r\n      \"ItemsPerPage\": 1\r\n    },\r\n    \"Filters\": {\r\n      \"Price\": {\r\n        \"Min\": 0\r\n      },\r\n      \"IncludeMarketPlace\": false\r\n    }\r\n  }\r\n}";
     }
 
     public String JSON;
@@ -93,7 +93,8 @@ public class Client {
 
     public static void main(String args[]) {
 
-        searchProduct("tablette","");
+        System.out.println(createJsonForSearch("tablette", "minprice"));
+        //searchProduct("tablette","");
 
         /*OkHttpClient client = new OkHttpClient();
 

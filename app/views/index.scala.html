@@ -1,7 +1,77 @@
 @(message: String)
 
-@main("Welcome to Play") {
+@main("Team-MIA") {
 
-    @message
+
+
+} {
+
+    <div class="bs-docs-masthead">
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" >
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="@routes.Assets.versioned("images/cata1.jpg")"  alt="Application">
+                </div>
+                <div class="item">
+                    <img src="@routes.Assets.versioned("images/cata2.jpg")"  alt="Exercice">
+                </div>
+                <div class="item">
+                    <img src="@routes.Assets.versioned("images/cata3.jpg")"  alt="Exercice">
+                </div>
+            </div>
+
+                <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+    </div>
+    <div class="bs-docs-featurette" style="background-color: gray;">
+        <div class="panel panel-default">
+            <h3 style="text-align : center;">Présentation</h3>
+            <div class="panel-body" style="text-align:justify;">
+                <p>
+                    Bienvenue sur l'application Team
+                    Iis igitur est difficilius satis facere, qui se Latina scripta dicunt contemnere.
+                    in quibus hoc primum est in quo admirer, cur in gravissimis rebus non delectet eos sermo patrius,
+                    cum idem fabellas Latinas ad verbum e Graecis expressas non inviti legant. quis enim tam inimicus
+                    paene nomini Romano est, qui Ennii Medeam aut Antiopam Pacuvii spernat aut reiciat, quod se isdem
+                    Euripidis fabulis delectari dicat, Latinas litteras oderit? </p><br/>
+
+                <p>Rogatus ad ultimum admissusque in consistorium ambage nulla praegressa inconsiderate et leviter
+                    proficiscere inquit ut praeceptum est, Caesar sciens quod si cessaveris, et tuas et palatii tui auferri
+                    iubebo prope diem annonas. hocque solo contumaciter dicto subiratus abscessit nec in conspectum eius postea venit saepius arcessitus. </p><br/>
+
+                <p>Inter has ruinarum varietates a Nisibi quam tuebatur accitus Vrsicinus, cui nos obsecuturos iunxerat
+                    imperiale praeceptum, dispicere litis exitialis certamina cogebatur abnuens et reclamans, adulatorum
+                    oblatrantibus turmis, bellicosus sane milesque semper et militum ductor sed forensibus iurgiis longe discretus,
+                    qui metu sui discriminis anxius cum accusatores quaesitoresque subditivos sibi consociatos ex isdem foveis cerneret
+                    emergentes, quae clam palamve agitabantur, occultis Constantium litteris edocebat inplorans subsidia, quorum metu tumor notissimus Caesaris exhalaret.</p><br/>
+            </div>
+        </div>
+    </div>
+    <div class="bs-docs-featurette" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <h4 style="text-align : center;">Présentation Application</h3>
+                        <p>Iis igitur est difficilius satis facere, qui se Latina scripta dicunt contemnere.
+                            in quibus hoc primum est in quo admirer, cur in gravissimis rebus non delectet eos sermo patrius,
+                            cum idem fabellas Latinas ad verbum e Graecis expressas non inviti legant.</p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="@routes.Assets.versioned("images/appli.jpg")" alt>
+                </div>
+            </div>
+        </div>
+    </div>
 
 }

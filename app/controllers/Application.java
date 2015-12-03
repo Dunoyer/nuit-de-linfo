@@ -7,6 +7,8 @@ import views.html.*;
 
 public class Application extends Controller {
 
+    private static String APIKey = "93cf730f-a372-4b74-8df3-e64bf9c7a817";
+
     public Result kits() {
         return ok(kits.render());
     }

@@ -27,8 +27,7 @@
               <td> @productList.getName </td>
               <td> @productList.getSalePrice € </td>
               <td> @productList.getDescription </td>
-              <td> <input type="text" id="quantite"> </input> </td>
-              <td>  <button id="bouton3" type="button" class="btn btn-primary" style="width: 150px;" onclick="addToCart('pile')">Ajouter au panier</button></td>
+              <td> <form method="post" action="@routes.CartController.addToCart(productList.getId)"><input value="Ajouter au panier" type="submit" id="bouton3" type="button" class="btn btn-primary" style="width: 150px;"></form> </td>
             </tr>
           }
         </table>

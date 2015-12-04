@@ -24,7 +24,7 @@
                     <h3>Sélectionner les élements dont vous avez besoin.</h3>
 
                     <div class="centrer">
-                        <button id="bouton1" type="button" class="btn btn-primary" style="width: 150px;" onclick="selectionProduit('eau')">Eau</button>
+                        <button id="bouton1" type="button" class="btn btn-primary" style="width: 150px;" onclick="selectionProduit('eau minerale')">Eau</button>
                         <button id="bouton2" type="button" class="btn btn-primary" style="width: 150px;" onclick="selectionProduit('couche')">Couche</button>
                         <button id="bouton3" type="button" class="btn btn-primary" style="width: 150px;" onclick="selectionProduit('pile')">Pile</button>
                     </div>
@@ -40,7 +40,7 @@
                                     <div class="form-group">
                                         <label for="sel1" style="color: #0f0f0f; width: 50%;">Sélectionner le critère de filtrage </label>
                                         <select class="form-control" id="Liste" name="Liste">
-                                            <option value="relevance">Par pertinance</option>
+                                            <option value="relevance">Par pertinence</option>
                                             <option value="minPrice">Par prix minimum</option>
                                             <option value="maxPrice">Par prix maximum</option>
                                             <option value="rating">Le mieux noté</option>
@@ -48,7 +48,7 @@
                                     </div>
 
 
-                                    <input type="hidden" name="valeurboutton" id="valeurboutton" value="eau minerale">
+                                    <input type="hidden" name="valeurboutton" id="valeurboutton" value="Eau plate">
                                     <input type="submit" value="envoyer" class="noir"/>
                                 </form>
 
@@ -60,14 +60,14 @@
                     <div id="couche" style="display: none" class="centrer_decaller">
 
                         <div class="panel panel-default" >
-                            <form class="panel-body">
+                            <div class="panel-body">
                                 <h3><span style="color: #0f0f0f"> Couche </span></h3>
 
                                 <form id="formCouche"  action="/produits" method="post">
                                     <div class="form-group">
                                         <label for="sel1" style="color: #0f0f0f; width: 50%;">Sélectionner le critère de filtrage </label>
                                         <select class="form-control" id="Liste" name="Liste">
-                                            <option value="relevance">Par pertinance</option>
+                                            <option value="relevance">Par pertinence</option>
                                             <option value="minPrice">Par prix minimum</option>
                                             <option value="maxPrice">Par prix maximum</option>
                                             <option value="rating">Le mieux noté</option>
@@ -78,7 +78,7 @@
                                     <input type="hidden" name="valeurboutton" id="valeurboutton" value="Couche">
                                     <input type="submit" value="envoyer" class="noir"/>
                                 </form>
-                            </form>
+                            </div>
                         </div>
                     </div>
 
@@ -96,7 +96,7 @@
                                     <div class="form-group">
                                         <label for="sel1" style="color: #0f0f0f; width: 50%;">Sélectionner le critère de filtrage </label>
                                         <select class="form-control" id="Liste" name="Liste">
-                                            <option value="relevance">Par pertinance</option>
+                                            <option value="relevance">Par pertinence</option>
                                             <option value="minPrice">Par prix minimum</option>
                                             <option value="maxPrice">Par prix maximum</option>
                                             <option value="rating">Le mieux noté</option>

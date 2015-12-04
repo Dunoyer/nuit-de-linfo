@@ -9,15 +9,10 @@ import org.json.JSONObject;
 import play.mvc.Controller;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.lang.Object;
 
 
 /**
@@ -27,11 +22,16 @@ import java.lang.Object;
 public class Client extends Controller  {
 
     public static String URLToSendToSearchMethod ="https://api.cdiscount.com/OpenApi/json/Search";
+    public static String URLToSendToGetProduct ="https://api.cdiscount.com/OpenApi/json/GetProduct";
     static List<Map<String,String>> events = new ArrayList<Map<String,String>>();
     static List<Product> products = new ArrayList<Product>();
 
     private static String createJsonForSearch(String keyWord, String sortBy){
         return "{\r\n  \"ApiKey\": \"93cf730f-a372-4b74-8df3-e64bf9c7a817\",\r\n  \"SearchRequest\": {\r\n    \"Keyword\": \"" + keyWord + "\",\r\n    \"SortBy\": \"" + sortBy + "\",\r\n    \"Pagination\": {\r\n      \"ItemsPerPage\": 1\r\n    },\r\n    \"Filters\": {\r\n      \"Price\": {\r\n        \"Min\": 0\r\n      },\r\n      \"IncludeMarketPlace\": true\r\n    }\r\n  }\r\n}";
+    }
+
+    private static String createJsonForGetProduct(String idProduct){
+        return "{\r\n  \"ApiKey\": \"93cf730f-a372-4b74-8df3-e64bf9c7a817\",\r\n  \"ProductRequest\": {\r\n    \"ProductIdList\": [\r\n      \"" + idProduct + "\"  ],\r\n    \"Scope\": {\r\n      \"Offers\": false,\r\n      \"AssociatedProducts\": false,\r\n      \"Images\": true,\r\n      \"Ean\": false\r\n    }\r\n  }\r\n}";
     }
 
     public static String searchProduct(String keyword, String sortBy)
@@ -67,9 +67,41 @@ public class Client extends Controller  {
     }
 
 
+    public static String getProduct(String id)
+    {
+        OkHttpClient client = new OkHttpClient();
+
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(mediaType, createJsonForGetProduct(id));
+        Request request = new Request.Builder()
+                .url(URLToSendToGetProduct)
+                .post(body)
+                .addHeader("content-type", "application/json")
+                .build();
+
+        try {
+
+            Response response = client.newCall(request).execute();
+            InputStream stream = response.body().byteStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            StringBuilder result = new StringBuilder();
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                result.append(line);
+            }
+
+            System.out.println(result.toString());
+            return result.toString();
+        } catch (IOException e) {
+            System.out.println("an error occurred");
+            return "erreur";
+        }
+    }
+
     //region JsonStringToListView
 
-    private static void initList(String jsonString){
+    private static void initListSearch(String jsonString){
 
         try{
             JSONObject jsonResponse = new JSONObject(jsonString);
@@ -77,12 +109,12 @@ public class Client extends Controller  {
 
             for(int i = 0; i<jsonMainNode.length();i++){
                 JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                JSONObject jsonChildNode2 = (JSONObject) jsonChildNode.get("BestOffer");
+                //JSONObject jsonChildNode2 = (JSONObject) jsonChildNode.get("BestOffer");
                 JSONObject idProduct = (JSONObject) jsonChildNode.get("Id");
                 JSONObject descriptionProduct = (JSONObject) jsonChildNode.get("Description");
 
                 //jsonChildNode.get("Id");
-                System.out.println(jsonChildNode2.get("Id"));
+                System.out.println(idProduct);
                 //String id = jsonChildNode.optString("BestOffer");
                 /*for(int j = 0; j<jsonChildNode.length();j++){
                     JSONObject jsonChild2 = jsonChildNode.getJSONObject(j);
@@ -92,15 +124,42 @@ public class Client extends Controller  {
                 events.add(createEvents("events", id));
 */
                 //System.out.println(id);
-                events.add(createEvents("product", (String) jsonChildNode2.get("Id")));
+                events.add(createEvents("product", ""));
                 Product product = new Product();
-                product.setId((String) jsonChildNode2.get("Id"));
+                //product.setId((String) jsonChildNode2.get("Id"));
                 products.add(product);
             }
         }
         catch(JSONException e){
             e.printStackTrace();
             System.out.println("Erreur");
+        }
+    }
+
+    private static Product initListGetProduct(String jsonString){
+
+        try{
+            JSONObject jsonResponse = new JSONObject(jsonString);
+            JSONArray jsonMainNode = jsonResponse.optJSONArray("Products");
+
+                JSONObject jsonChildNode = jsonMainNode.getJSONObject(0);
+                String idProduct =  jsonChildNode.optString("Id");
+                String nameProduct = jsonChildNode.optString("Name");
+                String descriptionProduct = jsonChildNode.optString("Description");
+                String brandProduct = jsonChildNode.optString("Brand");
+                String eanProduct = jsonChildNode.optString("Ean");
+                String mainImageUrl = jsonChildNode.optString("MainImageUrl");
+                int rating = jsonChildNode.optInt("Rating");
+                int offersCount = jsonChildNode.optInt("OffersCount");
+
+                Product product = new Product(idProduct,nameProduct,descriptionProduct,eanProduct,brandProduct,mainImageUrl,rating,offersCount);
+                return product;
+
+        }
+        catch(JSONException e){
+            e.printStackTrace();
+            System.out.println("Erreur");
+            return null;
         }
     }
 
@@ -116,8 +175,11 @@ public class Client extends Controller  {
     public static void main(String args[]) {
 
         //System.out.println(createJsonForSearch("tablette", "minprice"));
-        searchProduct("tablette","minprice");
-        initList(searchProduct("tablette","minprice"));
+        /*searchProduct("tablette","minprice");
+        initListSearch(searchProduct("tablette","minprice"));
+*/
+        System.out.println(initListGetProduct(getProduct("90NP0233")).toString());
+
     }
 
 

@@ -17,13 +17,16 @@
           <tr>
             <th> Image </th>
             <th> Nom </th>
+            <th> Prix </th>
             <th> Description </th>
             <th> Quantite </th>
+            <th> Action </th>
           </tr>
           @for(productList <- products) {
             <tr id="prod">
               <td>  <img class="img-responsive" src="@productList.getMainImageUrl"/> </td>
               <td> @productList.getName </td>
+              <td> @productList.getSalePrice € </td>
               <td> @productList.getDescription </td>
               <td> <input type="text" id="quantite"> </input> </td>
               <td>  <button id="bouton3" type="button" class="btn btn-primary" style="width: 150px;" onclick="addToCart('pile')">Ajouter au panier</button></td>

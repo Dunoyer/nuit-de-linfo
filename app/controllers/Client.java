@@ -163,6 +163,7 @@ public class Client extends Controller  {
                 JSONObject jsonChildNode = jsonMainNode.getJSONObject(0);
                 String idProduct =  jsonChildNode.optString("Id");
                 String nameProduct = jsonChildNode.optString("Name");
+                String salePrice =  jsonChildNode.getJSONObject("BestOffer").optString("SalePrice");
                 String descriptionProduct = jsonChildNode.optString("Description");
                 String brandProduct = jsonChildNode.optString("Brand");
                 String eanProduct = jsonChildNode.optString("Ean");
@@ -170,7 +171,7 @@ public class Client extends Controller  {
                 int rating = jsonChildNode.optInt("Rating");
                 int offersCount = jsonChildNode.optInt("OffersCount");
 
-                Product product = new Product(idProduct,nameProduct,descriptionProduct,eanProduct,brandProduct,mainImageUrl,rating,offersCount);
+                Product product = new Product(idProduct,nameProduct,salePrice,descriptionProduct,eanProduct,brandProduct,mainImageUrl,rating,offersCount);
                 return product;
 
         }

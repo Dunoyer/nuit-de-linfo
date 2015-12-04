@@ -38,8 +38,6 @@ public class Client extends Controller  {
     }
     public static String searchProduct(String keyword, String sortBy)
     {
-        OkHttpClient client = new OkHttpClient();
-
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType, createJsonForSearch(keyword, sortBy));
         Request request = new Request.Builder()
@@ -48,30 +46,13 @@ public class Client extends Controller  {
                 .addHeader("content-type", "application/json")
                 .build();
 
-        try {
-
-            Response response = client.newCall(request).execute();
-            InputStream stream = response.body().byteStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-            StringBuilder result = new StringBuilder();
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
-            }
-
-            System.out.println(result.toString());
-            return result.toString();
-        } catch (IOException e) {
-            System.out.println("an error occur");
-            return "erreur";
-        }
+        return GenJSON(request);
     }
 
 
     public static String getProduct(String id)
     {
-        OkHttpClient client = new OkHttpClient();
+
 
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType, createJsonForGetProduct(id));
@@ -81,8 +62,13 @@ public class Client extends Controller  {
                 .addHeader("content-type", "application/json")
                 .build();
 
-        try {
+        return GenJSON(request);
+    }
 
+    /* Permet de communiquer avec l'API le JSON requete et de recuperer le JSON reponse */
+    public static String GenJSON(Request request){
+        try {
+            OkHttpClient client = new OkHttpClient();
             Response response = client.newCall(request).execute();
             InputStream stream = response.body().byteStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
@@ -100,6 +86,8 @@ public class Client extends Controller  {
             return "erreur";
         }
     }
+
+
 
     public Result initListSearch(String keyword, String sortBy) {
 

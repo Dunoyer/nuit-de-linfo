@@ -27,14 +27,17 @@ public class Client extends Controller  {
     public static String URLToSendToGetProduct ="https://api.cdiscount.com/OpenApi/json/GetProduct";
     static List<Product> products = new ArrayList<Product>();
 
+    /* Cree un JSON pour la fonction SEARCH */
     private static String createJsonForSearch(String keyWord, String sortBy){
         return "{\r\n  \"ApiKey\": \"93cf730f-a372-4b74-8df3-e64bf9c7a817\",\r\n  \"SearchRequest\": {\r\n    \"Keyword\": \"" + keyWord + "\",\r\n    \"SortBy\": \"" + sortBy + "\",\r\n    \"Pagination\": {\r\n      \"ItemsPerPage\": 1\r\n    },\r\n    \"Filters\": {\r\n      \"Price\": {\r\n        \"Min\": 0\r\n      },\r\n      \"IncludeMarketPlace\": true\r\n    }\r\n  }\r\n}";
     }
 
+    /* Cree un JSON pour la fonction GETPRODUCT */
     private static String createJsonForGetProduct(String idProduct){
         return "{\r\n  \"ApiKey\": \"93cf730f-a372-4b74-8df3-e64bf9c7a817\",\r\n  \"ProductRequest\": {\r\n    \"ProductIdList\": [\r\n      \"" + idProduct + "\"  ],\r\n    \"Scope\": {\r\n      \"Offers\": false,\r\n      \"AssociatedProducts\": false,\r\n      \"Images\": true,\r\n      \"Ean\": false\r\n    }\r\n  }\r\n}";
     }
 
+    /* API Cdiscount : Retourne une liste de produits repondant au filtre */
     public static String searchProduct(String keyword, String sortBy)
     {
         MediaType mediaType = MediaType.parse("application/json");
@@ -48,7 +51,7 @@ public class Client extends Controller  {
         return GenJSON(request);
     }
 
-
+    /* API Cdiscount : Retourne les infos d'un produits */
     public static String getProduct(String id)
     {
 

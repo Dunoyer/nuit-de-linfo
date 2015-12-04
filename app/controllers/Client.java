@@ -33,7 +33,6 @@ public class Client extends Controller  {
     private static String createJsonForGetProduct(String idProduct){
         return "{\r\n  \"ApiKey\": \"93cf730f-a372-4b74-8df3-e64bf9c7a817\",\r\n  \"ProductRequest\": {\r\n    \"ProductIdList\": [\r\n      \"" + idProduct + "\"  ],\r\n    \"Scope\": {\r\n      \"Offers\": false,\r\n      \"AssociatedProducts\": false,\r\n      \"Images\": true,\r\n      \"Ean\": false\r\n    }\r\n  }\r\n}";
     }
-
     public static String searchProduct(String keyword, String sortBy)
     {
         OkHttpClient client = new OkHttpClient();

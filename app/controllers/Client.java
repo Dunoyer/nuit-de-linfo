@@ -113,7 +113,7 @@ public class Client extends Controller  {
             String jsonString = searchProduct(keyword, sortBy);
             JSONObject jsonResponse = new JSONObject(jsonString);
             JSONArray jsonMainNode = jsonResponse.optJSONArray("Products");
-            products = new ArrayList<>();
+            products = new ArrayList<Product>();
             for(int i = 0; i<jsonMainNode.length();i++){
                 JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
                 String idProduct = jsonChildNode.optString("Id");

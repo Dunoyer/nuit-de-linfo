@@ -26,51 +26,105 @@
                 </div>
             </div>
 
-            <div class="panel panel-default">
-                <div class="panel-body" style="text-align:justify;">
-                    <p>Sélectionner les élements dont vous avez besoin.</p>
-                    <div class="checkbox">
-                        <div class="enfant">
-                            <label>
-                                <input type="checkbox"> Couche
-                            </label>
-                            <label>
-                                <input type="checkbox"> Petit pot
-                            </label>
-                        </div>
-                        <div class="vivre">
-                            <label>
-                                <input type="checkbox"> Nourriture
-                            </label>
-                            <label>
-                                <input type="checkbox"> Eau
-                            </label>
+            <div class="container">
+                <h3>Sélectionner les élements dont vous avez besoin.</h3>
+
+                <div class="centrer">
+                    <button id="bouton1" type="button" class="btn btn-primary" style="width: 180px;" onclick="selectionProduit('Lampe Torche')">Lampe Torche</button>
+                    <button id="bouton2" type="button" class="btn btn-primary" style="width: 180px;" onclick="selectionProduit('Couteau multifonction')">Couteau multifonction</button>
+                    <button id="bouton3" type="button" class="btn btn-primary" style="width: 180px;" onclick="selectionProduit('Trousse de toilette')"> Trousse de toilette </button>
+                </div>
+
+
+                <div id="eau" style="display: none" class="centrer_decaller">
+
+                    <div class="panel panel-default" >
+                        <div class="panel-body">
+                            <h3><span style="color: #0f0f0f"> Lampe Torche </span></h3>
+
+                            <form id="formEau" action="/produits" method="post">
+                                <div class="form-group">
+                                    <label for="sel1" style="color: #0f0f0f; width: 50%;">Sélectionner le critère de filtrage </label>
+                                    <select class="form-control" id="Liste" name="Liste">
+                                        <option value="relevance">Par pertinence</option>
+                                        <option value="minPrice">Par prix minimum</option>
+                                        <option value="maxPrice">Par prix maximum</option>
+                                        <option value="rating">Le mieux noté</option>
+                                    </select>
+                                </div>
+
+
+                                <input type="hidden" name="valeurboutton" id="valeurboutton" value="Lampe Torche">
+                                <input type="submit" value="envoyer" class="noir"/>
+                            </form>
 
                         </div>
-                        <div class="materiel">
-                            <label>
-                                <input type="checkbox"> Pile
-                            </label>
-                            <label>
-                                <input type="checkbox"> Couverture
-                            </label>
-                            <label>
-                                <input type="checkbox"> Coûteau suisse
-                            </label>
-                            <label>
-                                <input type="checkbox"> Lampe torche
-                            </label>
-                            <label>
-                                <input type="checkbox"> Kit médical
-                            </label>
-                            <label>
-                                <input type="checkbox"> Sifflet
-                            </label>
+                    </div>
+
+                </div>
+
+                <div id="couche" style="display: none" class="centrer_decaller">
+
+                    <div class="panel panel-default" >
+                        <div class="panel-body">
+                            <h3><span style="color: #0f0f0f"> Couteau multifonction </span></h3>
+
+                            <form id="formCouche"  action="/produits" method="post">
+                                <div class="form-group">
+                                    <label for="sel1" style="color: #0f0f0f; width: 50%;">Sélectionner le critère de filtrage </label>
+                                    <select class="form-control" id="Liste" name="Liste">
+                                        <option value="relevance">Par pertinence</option>
+                                        <option value="minPrice">Par prix minimum</option>
+                                        <option value="maxPrice">Par prix maximum</option>
+                                        <option value="rating">Le mieux noté</option>
+                                    </select>
+                                </div>
+
+
+                                <input type="hidden" name="valeurboutton" id="valeurboutton" value="Couteau multifonction">
+                                <input type="submit" value="envoyer" class="noir"/>
+                            </form>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="text-align:justify;">Sélectionner</button>
                 </div>
+
+
+
             </div>
+
+            <div id="pile"  style="display: none" class="centrer_decaller">
+
+                <div class="panel panel-default" >
+                    <div class="panel-body">
+                        <h3><span style="color: #0f0f0f"> Trousse de toilette </span></h3>
+
+                        <form id="formPile" name="formPile"  action="/produits" method="post">
+                            <div class="form-group">
+                                <label for="sel1" style="color: #0f0f0f; width: 50%;">Sélectionner le critère de filtrage </label>
+                                <select class="form-control" id="Liste" name="Liste">
+                                    <option value="relevance">Par pertinence</option>
+                                    <option value="minPrice">Par prix minimum</option>
+                                    <option value="maxPrice">Par prix maximum</option>
+                                    <option value="rating">Le mieux noté</option>
+                                </select>
+                            </div>
+
+                            <input type="hidden" name="valeurboutton" id="valeurboutton" value="Trousse de toilette">
+                            <input type="submit" value="envoyer" class="noir"/>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div>
+                <form action="/produits/commande" method="post">
+                    <input type="submit" value="Commander">
+                </form>
+            </div>
+
         </div>
+
     </div>
 }

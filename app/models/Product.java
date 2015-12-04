@@ -14,10 +14,22 @@ public class Product {
     private String MainImageUrl;
     private Number Rating;
     private Integer OffersCount = null;
-    private Offer BestOffer = null;
-    private ArrayList<Image> Images;
-    private ArrayList<Offer> Offers;
-    private ArrayList<Product> AssociatedProducts;
+    /*private ArrayList<Offer> Offers;
+    private ArrayList<Product> AssociatedProducts;*/
+
+    public Product(String id, String name, String description, String ean, String brand, String mainImageUrl, Number rating, Integer offersCount) {
+        Id = id;
+        Name = name;
+        Description = description;
+        Ean = ean;
+        Brand = brand;
+        MainImageUrl = mainImageUrl;
+        Rating = rating;
+        OffersCount = offersCount;
+    }
+
+    public Product() {
+    }
 
     public String getId() {
         return Id;
@@ -82,7 +94,7 @@ public class Product {
     public void setOffersCount(Integer offersCount) {
         OffersCount = offersCount;
     }
-
+/*
     public Offer getBestOffer() {
         return BestOffer;
     }
@@ -113,5 +125,19 @@ public class Product {
 
     public void setAssociatedProducts(ArrayList<Product> associatedProducts) {
         AssociatedProducts = associatedProducts;
+    }*/
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "Id='" + Id + '\'' +
+                ", Name='" + Name + '\'' +
+                ", Description='" + Description + '\'' +
+                ", Ean='" + Ean + '\'' +
+                ", Brand='" + Brand + '\'' +
+                ", MainImageUrl='" + MainImageUrl + '\'' +
+                ", Rating=" + Rating +
+                ", OffersCount=" + OffersCount +
+                '}';
     }
 }

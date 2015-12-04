@@ -95,40 +95,56 @@ public class Client extends Controller  {
         }
     }
 
-    public Result initListSearch() {
-
+    public  Result initListSearch2() {
         // 1 Récupérer le formulaire
-        DynamicForm formulaireVoeux = form().bindFromRequest();
+        DynamicForm product = form().bindFromRequest();
 
-        String keyword="";
-
-        String eau = formulaireVoeux.get("eaumineral");
-        String couche = formulaireVoeux.get("Couche");
-        String pile = formulaireVoeux.get("Pile");
-
-        //String sortBy = formulaireVoeux.get("List");
-        String sortBy = "minPrice";
+        String keyword= product.get("Couche");
 
 
-        if(eau != "")
-        {
-            keyword = eau;
-        }
+        String sortBy = product.get("Liste2");
 
-        if(couche != "")
-        {
-            keyword = couche;
-        }
 
-        if(pile != "")
-        {
-            keyword = pile;
-        }
+        System.out.println(keyword+" "+sortBy);
 
 
 
         try{
-            String jsonString = searchProduct("eau mineral", "minPrice");
+            String jsonString = searchProduct(keyword, sortBy);
+            JSONObject jsonResponse = new JSONObject(jsonString);
+            JSONArray jsonMainNode = jsonResponse.optJSONArray("Products");
+            products = new ArrayList<>();
+            for(int i = 0; i<jsonMainNode.length();i++){
+                JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
+                String idProduct = jsonChildNode.optString("Id");
+                System.out.println(idProduct);
+                products.add(initListGetProduct(getProduct(idProduct)));
+            }
+            return ok(produits.render(products));
+        }
+        catch(JSONException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Result initListSearch() {
+
+        // 1 Récupérer le formulaire
+        DynamicForm product = form().bindFromRequest();
+
+        String keyword= product.get("eaumineral");
+
+
+        String sortBy = product.get("List");
+
+
+        System.out.println(keyword+" "+sortBy);
+
+
+
+        try{
+            String jsonString = searchProduct(keyword, sortBy);
             JSONObject jsonResponse = new JSONObject(jsonString);
             JSONArray jsonMainNode = jsonResponse.optJSONArray("Products");
             products = new ArrayList<>();

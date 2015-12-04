@@ -36,19 +36,19 @@
                             <div class="panel-body">
                                <h3><span style="color: #0f0f0f"> Eau </span></h3>
 
-                                <form id="formEau" action="/produits" method="post">
+                                <form id="formEau" action="/produits/eau" method="post">
                                     <div class="form-group">
                                         <label for="sel1" style="color: #0f0f0f; width: 50%;">Sélectionner le critère de filtrage </label>
                                         <select class="form-control" id="List" name="List">
                                             <option value="relevance">Par pertinance</option>
-                                            <option value="minprice">Par prix minimum</option>
-                                            <option value="maxprice">Par prix maximum</option>
+                                            <option value="minPrice">Par prix minimum</option>
+                                            <option value="maxPrice">Par prix maximum</option>
                                             <option value="rating">Le mieux noté</option>
                                         </select>
                                     </div>
 
-                                    <input type="hidden" name="valeurboutton" id="valeurboutton" value="">
-                                    <input type="hidden" name="eaumineral" id="eaumineral" value="eau plate">
+
+                                    <input type="hidden" name="eaumineral" id="eaumineral" value="eau minerale">
                                     <input type="submit" value="envoyer" class="noir"/>
                                 </form>
 
@@ -63,19 +63,19 @@
                             <form class="panel-body">
                                 <h3><span style="color: #0f0f0f"> Couche </span></h3>
 
-                                <form id="formCouche"  action="/produits" method="post">
+                                <form id="formCouche"  action="/produits/couche" method="post">
                                     <div class="form-group">
                                         <label for="sel1" style="color: #0f0f0f; width: 50%;">Sélectionner le critère de filtrage </label>
                                         <select class="form-control" id="Liste2" name="Liste2">
                                             <option value="relevance">Par pertinance</option>
-                                            <option value="minprice">Par prix minimum</option>
-                                            <option value="maxprice">Par prix maximum</option>
+                                            <option value="minPrice">Par prix minimum</option>
+                                            <option value="maxPrice">Par prix maximum</option>
                                             <option value="rating">Le mieux noté</option>
                                         </select>
                                     </div>
 
-                                    <input type="hidden" name="valeurboutton" id="valeurboutton" value="">
-                                    <input type="hidden" name="couche" id="couche" value="Couche">
+
+                                    <input type="hidden" name="Couche" id="Couche" value="Couche">
                                     <input type="submit" value="envoyer" class="noir"/>
                                 </form>
                             </form>
@@ -92,13 +92,13 @@
                             <div class="panel-body">
                                 <h3><span style="color: #0f0f0f"> Pile </span></h3>
 
-                                <form id="formPile" action="/produits" method="post">
+                                <form id="formPile" action="/produits/pile" method="post">
                                     <div class="form-group">
                                         <label for="sel1" style="color: #0f0f0f; width: 50%;">Sélectionner le critère de filtrage </label>
                                         <select class="form-control" id="Liste3" name="Liste3">
                                             <option value="relevance">Par pertinance</option>
-                                            <option value="minprice">Par prix minimum</option>
-                                            <option value="maxprice">Par prix maximum</option>
+                                            <option value="minPrice">Par prix minimum</option>
+                                            <option value="maxPrice">Par prix maximum</option>
                                             <option value="rating">Le mieux noté</option>
                                         </select>
                                     </div>

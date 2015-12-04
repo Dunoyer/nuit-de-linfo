@@ -168,10 +168,10 @@ public class Client extends Controller  {
         // 1 Récupérer le formulaire
         DynamicForm product = form().bindFromRequest();
 
-        String keyword= product.get("eaumineral");
+        String keyword= product.get("valeurboutton");
 
 
-        String sortBy = product.get("List");
+        String sortBy = product.get("Liste");
 
 
         System.out.println(keyword+" "+sortBy);

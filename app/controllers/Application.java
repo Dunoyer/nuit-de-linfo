@@ -9,6 +9,10 @@ public class Application extends Controller {
 
     private static String APIKey = "93cf730f-a372-4b74-8df3-e64bf9c7a817";
 
+    public  Result infos() {
+        return ok(infos.render());
+    }
+
     public  Result seisme() {
         return ok(seisme.render());
     }

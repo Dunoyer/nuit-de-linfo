@@ -95,8 +95,43 @@ public class Client extends Controller  {
         }
     }
 
+    public Result initListSearch3() {
+        // 1 Récupérer le formulaire
+        System.out.println("toto");
+        DynamicForm product = form().bindFromRequest();
+
+        String keyword= product.get("Pile");
+
+
+        String sortBy = product.get("Liste3");
+
+
+        System.out.println(keyword+" "+sortBy);
+
+
+
+        try{
+            String jsonString = searchProduct(keyword, sortBy);
+            JSONObject jsonResponse = new JSONObject(jsonString);
+            JSONArray jsonMainNode = jsonResponse.optJSONArray("Products");
+            products = new ArrayList<>();
+            for(int i = 0; i<jsonMainNode.length();i++){
+                JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
+                String idProduct = jsonChildNode.optString("Id");
+                System.out.println(idProduct);
+                products.add(initListGetProduct(getProduct(idProduct)));
+            }
+            return ok(produits.render(products));
+        }
+        catch(JSONException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public  Result initListSearch2() {
         // 1 Récupérer le formulaire
+        System.out.println("toto");
         DynamicForm product = form().bindFromRequest();
 
         String keyword= product.get("Couche");

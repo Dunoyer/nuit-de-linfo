@@ -9,7 +9,7 @@ GET     /attentat                   controllers.Application.attentat()
 GET     /seisme                     controllers.Application.seisme()
 GET     /tsunami                    controllers.Application.tsunami()
 GET     /produits/:keyword/:sortBy  controllers.Client.initListSearch(keyword: String, sortBy:String)
-GET     /panier/:idProduit/:quantite/:cartId  controllers.CartController.addToCart(idProduit: String, quantite: int, cartId: String)
+GET     /panier/:idProduit/:quantite/:cartId  controllers.CartController.addToCart(idProduit: String, quantite: Int, cartId: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

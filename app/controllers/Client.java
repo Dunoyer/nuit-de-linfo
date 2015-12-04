@@ -6,15 +6,16 @@ import models.Product;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import play.mvc.Controller;
-import play.mvc.Result;
-import views.html.produits;
+import play.mvc.*;
+import views.html.*;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+
 
 
 /**
@@ -100,9 +101,30 @@ public class Client extends Controller  {
         }
     }
 
+    public Result initListSearch(String keyword, String sortBy) {
+
+        try{
+            String jsonString = searchProduct(keyword, sortBy);
+            JSONObject jsonResponse = new JSONObject(jsonString);
+            JSONArray jsonMainNode = jsonResponse.optJSONArray("Products");
+            products = new ArrayList<>();
+            for(int i = 0; i<jsonMainNode.length();i++){
+                JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
+                String idProduct = jsonChildNode.optString("Id");
+                System.out.println(idProduct);
+                products.add(initListGetProduct(getProduct(idProduct)));
+            }
+            return ok(produits.render(products));
+        }
+        catch(JSONException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     //region JsonStringToListView
 
-    private  Result initListSearch(String keyword, String sortBy){
+    /*private  Result initListSearch(String keyword, String sortBy){
 
         try{
             String jsonString = searchProduct(keyword, sortBy);
@@ -121,7 +143,7 @@ public class Client extends Controller  {
             e.printStackTrace();
             return null;
         }
-    }
+    }*/
 
     private static Product initListGetProduct(String jsonString){
 
@@ -159,14 +181,14 @@ public class Client extends Controller  {
     //endregion JsonStringToListView
 
 
-    public static void main(String args[]) {
+   /* public static void main(String args[]) {
 
         //System.out.println(createJsonForSearch("tablette", "minprice"));
         /*searchProduct("tablette","minprice");
         initListSearch(searchProduct("tablette","minprice"));
-*/
+
         //System.out.println(initListGetProduct(getProduct("90NP0233")).toString());
         System.out.println(initListSearch("tablette","minprice"));
-    }
+    }*/
 
 }

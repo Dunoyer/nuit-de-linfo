@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Product {
     private String Id = null;
     private String Name;
+    private String salePrice;
     private String Description;
     private String Ean = null;
     private String Brand;
@@ -17,9 +18,10 @@ public class Product {
     /*private ArrayList<Offer> Offers;
     private ArrayList<Product> AssociatedProducts;*/
 
-    public Product(String id, String name, String description, String ean, String brand, String mainImageUrl, Number rating, Integer offersCount) {
+    public Product(String id, String name, String salePrice, String description, String ean, String brand, String mainImageUrl, Number rating, Integer offersCount) {
         Id = id;
         Name = name;
+        this.salePrice =salePrice;
         Description = description;
         Ean = ean;
         Brand = brand;
@@ -139,5 +141,13 @@ public class Product {
                 ", Rating=" + Rating +
                 ", OffersCount=" + OffersCount +
                 '}';
+    }
+
+    public String getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(String salePrice) {
+        this.salePrice = salePrice;
     }
 }

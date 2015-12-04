@@ -21,7 +21,6 @@ import static play.data.Form.form;
 
 
 
-
 /**
  * Created by Miage on 03/12/2015.
  */
@@ -30,16 +29,19 @@ public class Client extends Controller  {
 
     public static String URLToSendToSearchMethod ="https://api.cdiscount.com/OpenApi/json/Search";
     public static String URLToSendToGetProduct ="https://api.cdiscount.com/OpenApi/json/GetProduct";
-    static List<Map<String,String>> events = new ArrayList<Map<String,String>>();
     static List<Product> products = new ArrayList<Product>();
 
+    /* Cree un JSON pour la fonction SEARCH */
     private static String createJsonForSearch(String keyWord, String sortBy){
         return "{\r\n  \"ApiKey\": \"93cf730f-a372-4b74-8df3-e64bf9c7a817\",\r\n  \"SearchRequest\": {\r\n    \"Keyword\": \"" + keyWord + "\",\r\n    \"SortBy\": \"" + sortBy + "\",\r\n    \"Pagination\": {\r\n      \"ItemsPerPage\": 10\r\n    },\r\n    \"Filters\": {\r\n      \"Price\": {\r\n        \"Min\": 0\r\n      },\r\n      \"IncludeMarketPlace\": true\r\n    }\r\n  }\r\n}";
     }
 
+    /* Cree un JSON pour la fonction GETPRODUCT */
     private static String createJsonForGetProduct(String idProduct){
         return "{\r\n  \"ApiKey\": \"93cf730f-a372-4b74-8df3-e64bf9c7a817\",\r\n  \"ProductRequest\": {\r\n    \"ProductIdList\": [\r\n      \"" + idProduct + "\"  ],\r\n    \"Scope\": {\r\n      \"Offers\": false,\r\n      \"AssociatedProducts\": false,\r\n      \"Images\": true,\r\n      \"Ean\": false\r\n    }\r\n  }\r\n}";
     }
+
+    /* API Cdiscount : Retourne une liste de produits repondant au filtre */
     public static String searchProduct(String keyword, String sortBy)
     {
         OkHttpClient client = new OkHttpClient();
@@ -52,30 +54,13 @@ public class Client extends Controller  {
                 .addHeader("content-type", "application/json")
                 .build();
 
-        try {
-
-            Response response = client.newCall(request).execute();
-            InputStream stream = response.body().byteStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-            StringBuilder result = new StringBuilder();
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
-            }
-
-            System.out.println(result.toString());
-            return result.toString();
-        } catch (IOException e) {
-            System.out.println("an error occur");
-            return "erreur";
-        }
+        return GenJSON(request);
     }
 
-
+    /* API Cdiscount : Retourne les infos d'un produits */
     public static String getProduct(String id)
     {
-        OkHttpClient client = new OkHttpClient();
+
 
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType, createJsonForGetProduct(id));
@@ -85,8 +70,13 @@ public class Client extends Controller  {
                 .addHeader("content-type", "application/json")
                 .build();
 
-        try {
+        return GenJSON(request);
+    }
 
+    /* Permet de communiquer avec l'API le JSON requete et de recuperer le JSON reponse */
+    public static String GenJSON(Request request){
+        try {
+            OkHttpClient client = new OkHttpClient();
             Response response = client.newCall(request).execute();
             InputStream stream = response.body().byteStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));

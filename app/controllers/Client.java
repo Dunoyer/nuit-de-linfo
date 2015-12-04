@@ -26,7 +26,6 @@ public class Client extends Controller  {
 
     public static String URLToSendToSearchMethod ="https://api.cdiscount.com/OpenApi/json/Search";
     public static String URLToSendToGetProduct ="https://api.cdiscount.com/OpenApi/json/GetProduct";
-    static List<Map<String,String>> events = new ArrayList<Map<String,String>>();
     static List<Product> products = new ArrayList<Product>();
 
     private static String createJsonForSearch(String keyWord, String sortBy){
@@ -36,6 +35,7 @@ public class Client extends Controller  {
     private static String createJsonForGetProduct(String idProduct){
         return "{\r\n  \"ApiKey\": \"93cf730f-a372-4b74-8df3-e64bf9c7a817\",\r\n  \"ProductRequest\": {\r\n    \"ProductIdList\": [\r\n      \"" + idProduct + "\"  ],\r\n    \"Scope\": {\r\n      \"Offers\": false,\r\n      \"AssociatedProducts\": false,\r\n      \"Images\": true,\r\n      \"Ean\": false\r\n    }\r\n  }\r\n}";
     }
+
     public static String searchProduct(String keyword, String sortBy)
     {
         OkHttpClient client = new OkHttpClient();
@@ -107,7 +107,7 @@ public class Client extends Controller  {
             String jsonString = searchProduct(keyword, sortBy);
             JSONObject jsonResponse = new JSONObject(jsonString);
             JSONArray jsonMainNode = jsonResponse.optJSONArray("Products");
-            products = new ArrayList<>();
+            products = new ArrayList<Product>();
             for(int i = 0; i<jsonMainNode.length();i++){
                 JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
                 String idProduct = jsonChildNode.optString("Id");
@@ -172,23 +172,17 @@ public class Client extends Controller  {
         }
     }
 
-    private static HashMap<String, String>createEvents(String name, String number){
-        HashMap<String, String> eventsNameNo = new HashMap<String, String>();
-        eventsNameNo.put(name, number);
-        return eventsNameNo;
-    }
-
     //endregion JsonStringToListView
 
 
-   /* public static void main(String args[]) {
+    public static void main(String args[]) {
 
         //System.out.println(createJsonForSearch("tablette", "minprice"));
         /*searchProduct("tablette","minprice");
         initListSearch(searchProduct("tablette","minprice"));
 
         //System.out.println(initListGetProduct(getProduct("90NP0233")).toString());
-        System.out.println(initListSearch("tablette","minprice"));
-    }*/
+        System.out.println(initListSearch("tablette","minprice"));*/
+    }
 
 }

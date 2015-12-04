@@ -11,7 +11,7 @@ GET     /infos                      controllers.Application.infos()
 GET     /tsunami                    controllers.Application.tsunami()
 POST    /produits                    controllers.Client.initListSearch()
 POST    /produits/commande          controllers.CartController.goToCommand()
-GET     /panier/:idProduit/:quantite/:cartId  controllers.CartController.addToCart(idProduit: String, quantite: String, cartId: String)
+POST    /panier/:idProduit          controllers.CartController.addToCart(idProduit: String)
 
 
 

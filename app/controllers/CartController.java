@@ -22,7 +22,7 @@ public class CartController extends Controller {
     public String URLToSendToPushToCart ="https://api.cdiscount.com/OpenApi/json/PushToCart";
 
     public String cartId="";
-    public String checkoutUrl="";
+    public String checkoutUrl="/attentat";
 
     public List<CartItem> products = new ArrayList<CartItem>();
 
@@ -35,16 +35,16 @@ public class CartController extends Controller {
                 "    \"Quantity\": 1 \n" +
                 "  }\n" +
                 "}";
-
+        System.out.println(res);
         return res;
     }
 
-    public String pushToCart(String idProduct, String quantite,String cartId)
+    public String pushToCart(String idProduct)
     {
         OkHttpClient client = new OkHttpClient();
 
         MediaType mediaType = MediaType.parse("application/json");
-        RequestBody body = RequestBody.create(mediaType, createJsonForPushToCart(idProduct, quantite,cartId));
+        RequestBody body = RequestBody.create(mediaType, createJsonForPushToCart(idProduct, "1",this.cartId));
         Request request = new Request.Builder()
                 .url(URLToSendToPushToCart)
                 .post(body)
@@ -71,14 +71,15 @@ public class CartController extends Controller {
         }
     }
 
-    public Result addToCart(String idProduct, String quantite,String cartId) {
-
+    public Result addToCart(String idProduct) {
+        System.out.println(idProduct);
         try{
-            String jsonString = pushToCart(idProduct,quantite, cartId);
+            String jsonString = pushToCart(idProduct);
             JSONObject jsonResponse = new JSONObject(jsonString);
             this.cartId = jsonResponse.optString("CartGUID");
-            this.checkoutUrl = jsonResponse.optString("CheckoutUrl");
-            return ok(pushToCart.render(this.cartId,checkoutUrl));
+            this.checkoutUrl = (!jsonResponse.optString("CheckoutUrl").isEmpty()) ? jsonResponse.optString("CheckoutUrl") : this.checkoutUrl ;
+            System.out.println(checkoutUrl);
+            return redirect("/attentat");
         }
         catch(JSONException e){
             e.printStackTrace();

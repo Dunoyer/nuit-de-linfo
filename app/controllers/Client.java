@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.produits;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -100,38 +102,24 @@ public class Client extends Controller  {
 
     //region JsonStringToListView
 
-    private static void initListSearch(String jsonString){
+    private  Result initListSearch(String keyword, String sortBy){
 
         try{
+            String jsonString = searchProduct(keyword, sortBy);
             JSONObject jsonResponse = new JSONObject(jsonString);
             JSONArray jsonMainNode = jsonResponse.optJSONArray("Products");
 
             for(int i = 0; i<jsonMainNode.length();i++){
                 JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                //JSONObject jsonChildNode2 = (JSONObject) jsonChildNode.get("BestOffer");
-                JSONObject idProduct = (JSONObject) jsonChildNode.get("Id");
-                JSONObject descriptionProduct = (JSONObject) jsonChildNode.get("Description");
-
-                //jsonChildNode.get("Id");
+                String idProduct = jsonChildNode.optString("Id");
                 System.out.println(idProduct);
-                //String id = jsonChildNode.optString("BestOffer");
-                /*for(int j = 0; j<jsonChildNode.length();j++){
-                    JSONObject jsonChild2 = jsonChildNode.getJSONObject(j);
-                    JSONObject jsonID = jsonChildNode.optJSONObject("Id");
-                    System.out.println(jsonID);
-                }
-                events.add(createEvents("events", id));
-*/
-                //System.out.println(id);
-                events.add(createEvents("product", ""));
-                Product product = new Product();
-                //product.setId((String) jsonChildNode2.get("Id"));
-                products.add(product);
+                products.add(initListGetProduct(getProduct(idProduct)));
             }
+            return ok(produits.render(products));
         }
         catch(JSONException e){
             e.printStackTrace();
-            System.out.println("Erreur");
+            return null;
         }
     }
 
@@ -177,9 +165,8 @@ public class Client extends Controller  {
         /*searchProduct("tablette","minprice");
         initListSearch(searchProduct("tablette","minprice"));
 */
-        System.out.println(initListGetProduct(getProduct("90NP0233")).toString());
-
+        //System.out.println(initListGetProduct(getProduct("90NP0233")).toString());
+        System.out.println(initListSearch("tablette","minprice"));
     }
-
 
 }

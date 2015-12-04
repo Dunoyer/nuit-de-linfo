@@ -11,10 +11,7 @@ import play.mvc.Result;
 import views.html.produits;
 import views.html.pushToCart;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,14 +21,14 @@ import java.util.List;
 public class CartController extends Controller {
     public String URLToSendToPushToCart ="https://api.cdiscount.com/OpenApi/json/PushToCart";
 
-    public String cartId=null;
+    public String cartId="";
 
     public List<CartItem> products = new ArrayList<CartItem>();
 
-    private static String createJsonForPushToCart(String idProduct, int quantite,String cartId){
+    private  String createJsonForPushToCart(String idProduct, String quantite,String cartId){
 
 
-        if(cartId.equals(null)) {
+        /*if(cartId.isEmpty()) {
             return "{\n" +
                     "  \"ApiKey\": \"93cf730f-a372-4b74-8df3-e64bf9c7a817\",\n" +
                     "  \"PushToCartRequest\": {\n" +
@@ -43,21 +40,22 @@ public class CartController extends Controller {
                     "}";
         }
         else
-        {
-            return "{\n" +
-                    "  \"ApiKey\": \"93cf730f-a372-4b74-8df3-e64bf9c7a817\",\n" +
-                    "  \"PushToCartRequest\": {\n" +
-                    "    \"OfferId\": "+ idProduct +"\",\n"  +
-                    " \"CartGUID\":\""+ cartId +"\",\n"+
-                    "    \"ProductId\": \" "+ idProduct +"\",\n" +
-                    "    \"Quantity\": "+ quantite +",\n" +
-                    "    \"SellerId\": \"0\"\n" +
-                    "  }\n" +
-                    "}";
-        }
+        {*/
+        String toto = "{\n" +
+                "  \"ApiKey\": \"93cf730f-a372-4b74-8df3-e64bf9c7a817\",\n" +
+                "  \"PushToCartRequest\": {\n" +
+                " \"CartGUID\":\""+ cartId +"\",\n"+
+                "    \"ProductId\": \""+ idProduct +"\",\n" +
+                "    \"Quantity\": 1 \n" +
+                "  }\n" +
+                "}";
+        System.out.println(toto);
+            return toto;
+
+       // }
     }
 
-    public String pushToCart(String idProduct, int quantite,String cartId)
+    public String pushToCart(String idProduct, String quantite,String cartId)
     {
         OkHttpClient client = new OkHttpClient();
 
@@ -89,14 +87,14 @@ public class CartController extends Controller {
         }
     }
 
-    public Result addToCart(String idProduct, int quantite,String cartId) {
+    public Result addToCart(String idProduct, String quantite,String cartId) {
 
         try{
             String jsonString = pushToCart(idProduct,quantite, cartId);
             JSONObject jsonResponse = new JSONObject(jsonString);
-            cartId = jsonResponse.optString("CartGUID");
-
-            return ok(pushToCart.render(cartId));
+            this.cartId = jsonResponse.optString("CartGUID");
+            String checkoutUrl = jsonResponse.optString("CheckoutUrl");
+            return ok(pushToCart.render(this.cartId,checkoutUrl));
         }
         catch(JSONException e){
             e.printStackTrace();

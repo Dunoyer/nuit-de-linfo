@@ -11,8 +11,11 @@ GET     /infos                      controllers.Application.infos()
 GET     /tsunami                    controllers.Application.tsunami()
 #GET     /produits/:keyword/:sortBy  controllers.Client.initListSearch(keyword: String, sortBy:String)
 POST    /produits/eau               controllers.Client.initListSearch()
-GET     /panier/:idProduit/:quantite/:cartId  controllers.CartController.addToCart(idProduit: String, quantite: String, cartId: String)
 POST    /produits/couche            controllers.Client.initListSearch2()
+POST    /produits/pile              controllers.Client.initListSearch3()
+POST    /produits/commande          controllers.CartController.goToCommand()
+GET     /panier/:idProduit/:quantite/:cartId  controllers.CartController.addToCart(idProduit: String, quantite: String, cartId: String)
+
 
 
 # Map static resources from the /public folder to the /assets URL path

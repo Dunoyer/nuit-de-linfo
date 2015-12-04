@@ -22,26 +22,12 @@ public class CartController extends Controller {
     public String URLToSendToPushToCart ="https://api.cdiscount.com/OpenApi/json/PushToCart";
 
     public String cartId="";
+    public String checkoutUrl="";
 
     public List<CartItem> products = new ArrayList<CartItem>();
 
     private  String createJsonForPushToCart(String idProduct, String quantite,String cartId){
-
-
-        /*if(cartId.isEmpty()) {
-            return "{\n" +
-                    "  \"ApiKey\": \"93cf730f-a372-4b74-8df3-e64bf9c7a817\",\n" +
-                    "  \"PushToCartRequest\": {\n" +
-                    "    \"OfferId\": "+ idProduct +"\",\n" +
-                    "    \"ProductId\":"+ idProduct +"\",\n" +
-                    "    \"Quantity\": 1,\n" +
-                    "    \"SellerId\": \"0\"\n" +
-                    "  }\n" +
-                    "}";
-        }
-        else
-        {*/
-        String toto = "{\n" +
+        String res = "{\n" +
                 "  \"ApiKey\": \"93cf730f-a372-4b74-8df3-e64bf9c7a817\",\n" +
                 "  \"PushToCartRequest\": {\n" +
                 " \"CartGUID\":\""+ cartId +"\",\n"+
@@ -49,10 +35,8 @@ public class CartController extends Controller {
                 "    \"Quantity\": 1 \n" +
                 "  }\n" +
                 "}";
-        System.out.println(toto);
-            return toto;
 
-       // }
+        return res;
     }
 
     public String pushToCart(String idProduct, String quantite,String cartId)
@@ -93,13 +77,17 @@ public class CartController extends Controller {
             String jsonString = pushToCart(idProduct,quantite, cartId);
             JSONObject jsonResponse = new JSONObject(jsonString);
             this.cartId = jsonResponse.optString("CartGUID");
-            String checkoutUrl = jsonResponse.optString("CheckoutUrl");
+            this.checkoutUrl = jsonResponse.optString("CheckoutUrl");
             return ok(pushToCart.render(this.cartId,checkoutUrl));
         }
         catch(JSONException e){
             e.printStackTrace();
             return null;
         }
+    }
+
+    public Result goToCommand(){
+        return redirect(this.checkoutUrl);
     }
 
 }

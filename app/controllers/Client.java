@@ -6,6 +6,7 @@ import models.Product;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import play.data.DynamicForm;
 import play.mvc.*;
 import views.html.*;
 
@@ -14,6 +15,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import play.data.DynamicForm;
+import static play.data.Form.form;
 
 
 
@@ -30,7 +34,7 @@ public class Client extends Controller  {
     static List<Product> products = new ArrayList<Product>();
 
     private static String createJsonForSearch(String keyWord, String sortBy){
-        return "{\r\n  \"ApiKey\": \"93cf730f-a372-4b74-8df3-e64bf9c7a817\",\r\n  \"SearchRequest\": {\r\n    \"Keyword\": \"" + keyWord + "\",\r\n    \"SortBy\": \"" + sortBy + "\",\r\n    \"Pagination\": {\r\n      \"ItemsPerPage\": 1\r\n    },\r\n    \"Filters\": {\r\n      \"Price\": {\r\n        \"Min\": 0\r\n      },\r\n      \"IncludeMarketPlace\": true\r\n    }\r\n  }\r\n}";
+        return "{\r\n  \"ApiKey\": \"93cf730f-a372-4b74-8df3-e64bf9c7a817\",\r\n  \"SearchRequest\": {\r\n    \"Keyword\": \"" + keyWord + "\",\r\n    \"SortBy\": \"" + sortBy + "\",\r\n    \"Pagination\": {\r\n      \"ItemsPerPage\": 10\r\n    },\r\n    \"Filters\": {\r\n      \"Price\": {\r\n        \"Min\": 0\r\n      },\r\n      \"IncludeMarketPlace\": true\r\n    }\r\n  }\r\n}";
     }
 
     private static String createJsonForGetProduct(String idProduct){
@@ -101,10 +105,40 @@ public class Client extends Controller  {
         }
     }
 
-    public Result initListSearch(String keyword, String sortBy) {
+    public Result initListSearch() {
+
+        // 1 Récupérer le formulaire
+        DynamicForm formulaireVoeux = form().bindFromRequest();
+
+        String keyword="";
+
+        String eau = formulaireVoeux.get("eaumineral");
+        String couche = formulaireVoeux.get("Couche");
+        String pile = formulaireVoeux.get("Pile");
+
+        //String sortBy = formulaireVoeux.get("List");
+        String sortBy = "minPrice";
+
+
+        if(eau != "")
+        {
+            keyword = eau;
+        }
+
+        if(couche != "")
+        {
+            keyword = couche;
+        }
+
+        if(pile != "")
+        {
+            keyword = pile;
+        }
+
+
 
         try{
-            String jsonString = searchProduct(keyword, sortBy);
+            String jsonString = searchProduct("eau mineral", "minPrice");
             JSONObject jsonResponse = new JSONObject(jsonString);
             JSONArray jsonMainNode = jsonResponse.optJSONArray("Products");
             products = new ArrayList<>();

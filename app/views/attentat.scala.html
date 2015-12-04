@@ -15,59 +15,110 @@
                             <h5>Description</h5>
                             <p>Ce kit de survie permet de de rester confiné chez-soi muni d'article de consommation. Il se compose de : </p>
                         </div>
-                        <div class="col-sm-6 col-md-2">
-                            <h5 style="text-align: center;">Prix</h5>
-                            <h5 style="text-align: center;">15,00 €</h5>
-                        </div>
-                        <div class="col-sm-6 col-md-2">
-                            <a href="#" class="btn btn-primary" role="button">Sélectionner</a>
-                        </div>
+
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel panel-default">
-                    <div class="panel-body" style="text-align:justify;">
-                        <p>Sélectionner les élements dont vous avez besoin.</p>
-                        <div class="checkbox">
-                            <div class="enfant">
-                                <label>
-                                    <input type="checkbox"> Couche
-                                </label>
-                                <label>
-                                    <input type="checkbox"> Petit pot
-                                </label>
-                            </div>
-                            <div class="vivre">
-                                <label>
-                                    <input type="checkbox"> Nourriture non périssable
-                                </label>
-                                <label>
-                                    <input type="checkbox"> Eau
-                                </label>
+
+                <div class="container">
+                    <h3>Sélectionner les élements dont vous avez besoin.</h3>
+
+                    <div class="centrer">
+                        <button id="bouton1" type="button" class="btn btn-primary" style="width: 150px;" onclick="selectionProduit('eau')">Eau</button>
+                        <button id="bouton2" type="button" class="btn btn-primary" style="width: 150px;" onclick="selectionProduit('couche')">Couche</button>
+                        <button id="bouton3" type="button" class="btn btn-primary" style="width: 150px;" onclick="selectionProduit('pile')">Pile</button>
+                    </div>
+
+
+                    <div id="eau" style="display: none" class="centrer_decaller">
+
+                        <div class="panel panel-default" >
+                            <div class="panel-body">
+                               <h3><span style="color: #0f0f0f"> Eau </span></h3>
+
+                                <form id="formEau" action="/produits" method="post">
+                                    <div class="form-group">
+                                        <label for="sel1" style="color: #0f0f0f; width: 50%;">Sélectionner le critère de filtrage </label>
+                                        <select class="form-control" id="List" name="List">
+                                            <option value="relevance">Par pertinance</option>
+                                            <option value="minprice">Par prix minimum</option>
+                                            <option value="maxprice">Par prix maximum</option>
+                                            <option value="rating">Le mieux noté</option>
+                                        </select>
+                                    </div>
+
+                                    <input type="hidden" name="valeurboutton" id="valeurboutton" value="">
+                                    <input type="hidden" name="eaumineral" id="eaumineral" value="eau plate">
+                                    <input type="submit" value="envoyer" class="noir"/>
+                                </form>
 
                             </div>
-                            <div class="materiel">
-                                <label>
-                                    <input type="checkbox"> Pile
-                                </label>
-                                <label>
-                                    <input type="checkbox"> Réchaud
-                                </label>
-                                <label>
-                                    <input type="checkbox"> Lampe torche
-                                </label>
-                                <label>
-                                    <input type="checkbox"> Kit médical
-                                </label>
-                                <label>
-                                    <input type="checkbox"> Sifflet
-                                </label>
+                        </div>
+
+                    </div>
+
+                    <div id="couche" style="display: none" class="centrer_decaller">
+
+                        <div class="panel panel-default" >
+                            <form class="panel-body">
+                                <h3><span style="color: #0f0f0f"> Couche </span></h3>
+
+                                <form id="formCouche"  action="/produits" method="post">
+                                    <div class="form-group">
+                                        <label for="sel1" style="color: #0f0f0f; width: 50%;">Sélectionner le critère de filtrage </label>
+                                        <select class="form-control" id="Liste2" name="Liste2">
+                                            <option value="relevance">Par pertinance</option>
+                                            <option value="minprice">Par prix minimum</option>
+                                            <option value="maxprice">Par prix maximum</option>
+                                            <option value="rating">Le mieux noté</option>
+                                        </select>
+                                    </div>
+
+                                    <input type="hidden" name="valeurboutton" id="valeurboutton" value="">
+                                    <input type="hidden" name="couche" id="couche" value="Couche">
+                                    <input type="submit" value="envoyer" class="noir"/>
+                                </form>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+                    </div>
+
+                    <div id="pile"  style="display: none" class="centrer_decaller">
+
+                        <div class="panel panel-default" >
+                            <div class="panel-body">
+                                <h3><span style="color: #0f0f0f"> Pile </span></h3>
+
+                                <form id="formPile" action="/produits" method="post">
+                                    <div class="form-group">
+                                        <label for="sel1" style="color: #0f0f0f; width: 50%;">Sélectionner le critère de filtrage </label>
+                                        <select class="form-control" id="Liste3" name="Liste3">
+                                            <option value="relevance">Par pertinance</option>
+                                            <option value="minprice">Par prix minimum</option>
+                                            <option value="maxprice">Par prix maximum</option>
+                                            <option value="rating">Le mieux noté</option>
+                                        </select>
+                                    </div>
+
+                                    <input type="hidden" name="valeurboutton" id="valeurboutton" value="">
+                                    <input type="hidden" name="Pile" id="couche" value="Pile">
+                                    <input type="submit" value="envoyer" class="noir"/>
+                                </form>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Sélectionner</button>
+
                     </div>
+
+
+
+
                 </div>
+
+
+
             </div>
-        </div>
+
 }
